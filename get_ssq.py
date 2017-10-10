@@ -20,7 +20,7 @@ def get_No_Onepage(pages):
     tagList=[]
     for i in soup.find_all(align="center",text=re.compile(r'\d{4}')):
         tagList.append(i.string)
-    # all No. 6 Red No. and 1 Blue No.
+    # all Numbers. 6 Red Number. and 1 Blue Number.
     allemList=[]
     for allem in soup.find_all('em'):
         allemList.append(allem.string)
@@ -84,22 +84,19 @@ def link_pages():
             list_SSQ.append(o)
     return list_SSQ,all_Se
 def write_To_File():
-	list_SSQ,all_Se = link_pages()
-	pickle.dump(list_SSQ,open(r'ssq.pk','wb'))
+    list_SSQ,all_Se = link_pages()
+    pickle.dump(list_SSQ,open(r'ssq.pk','wb'))
 def get_Last_Se():
-	url = "http://kaijiang.zhcw.com/zhcw/html/ssq/list.html"
-	beautyText = BeautifulSoup(requests.get(url).text, "html.parser")
-	Last_Se = beautyText.find(align="center",text=re.compile(r'\d{7}')).string
-	return Last_Se
+    url = "http://kaijiang.zhcw.com/zhcw/html/ssq/list.html"
+    beautyText = BeautifulSoup(requests.get(url).text, "html.parser")
+    Last_Se = beautyText.find(align="center",text=re.compile(r'\d{7}')).string
+    return Last_Se
 def check_In():
-	print "Checking ... "
-	Last_Se = get_Last_Se()
-	geted_List = pickle.load(open(r'ssq.pk','r'))
-	geted_Se = geted_List[len(geted_List)-1][0]
-	if Last_Se == geted_Se:
-		print "All information is updated , enjoy !"
-	else:
-		print "You need update your datebase!!!"
-
-if __name__ == '__main__':
-	check_In()
+    print "Checking ... "
+    Last_Se = get_Last_Se()
+    geted_List = pickle.load(open(r'ssq.pk','r'))
+    geted_Se = geted_List[len(geted_List)-1][0]
+    if Last_Se == geted_Se:
+        print "All information is updated , enjoy !"
+    else:
+        print "You need update your datebase!!!"
